@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You 🌸</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;500&display=swap');
+        
+        :root {
+            --pink: #FFB6C1;
+            --dark-pink: #FF69B4;
+            --sakura: #FFDFEA;
+            --text: #5A3D2B;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+            background-color: #FFF9FB;
+            color: var(--text);
+            overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #FFF9FB, #FFEEF4);
+            position: relative;
+        }
+        
+        .sakura-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--sakura) 0%, transparent 3%),
+                radial-gradient(circle at 80% 20%, var(--sakura) 0%, transparent 3%),
+                radial-gradient(circle at 40% 70%, var(--sakura) 0%, transparent 3%),
+                radial-gradient(circle at 60% 80%, var(--sakura) 0%, transparent 3%);
+            background-size: 200px 200px;
+            opacity: 0.6;
+            z-index: -1;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-pink);
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, var(--pink), var(--dark-pink));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-no {
+            position: absolute;
+            transition: all 0.2s ease;
+        }
+        
+        .hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .floating-sakura {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--sakura);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.7;
+            filter: blur(0.5px);
+            z-index: -1;
+            animation: float 8s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+        
+        .heart {
+            font-size: 2rem;
+            animation: pulse 1.5s infinite alternate;
+            display: inline-block;
+        }
+        
+        @keyframes pulse {
+            to {
+                transform: scale(1.3);
+                text-shadow: 0 0 10px var(--dark-pink);
+            }
+        }
+        
+        .message {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            animation: fadeIn 1.5s ease;
+            border: 1px dashed var(--pink);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fly {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* SoundCloud Player Styles */
+        .soundcloud-player {
+            margin: 2rem auto 0;
+            width: 100%;
+            max-width: 400px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+        }
+        
+        .soundcloud-player.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .music-note {
+            font-size: 1.5rem;
+            animation: floatNote 2s ease-in-out infinite;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        @keyframes floatNote {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .soundcloud-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--dark-pink);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--dark-pink);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="sakura-bg"></div>
+    
+    <div id="sakura-container"></div>
+    
+    <div class="container">
+        <h1>For My Special Someone 🌸</h1>
+        <p>Click the button below for a little surprise...</p>
+        
+        <button id="mainBtn" class="btn">Click Meeee~</button>
+        
+        <div id="firstMessage" class="hidden">
+            <div class="message">
+                <p>"Welcome to my world baby, I still wouldn't forget that sentence you said on that night 👀"</p>
+                <p>Do you know what I'm talkin about?</p>
+                
+                <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                    <button id="yesBtn" class="btn">Yes</button>
+                    <button id="noBtn" class="btn btn-no">No</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="finalMessage" class="hidden">
+            <div class="message">
+                <p>I knew it, well, that was a joke.</p>
+                <p>I wanna say...</p>
+                <p>Hey baby, thanks for coming in my life, you made my life so much better than ever, and I never wanna lose you bacche. I will be thankful for my whole life that you chose me as your partner, and It's my promise, I would never gonna let you go or abandon you in the fog. I love you so much, and I will continue to. <span class="heart">❤️</span></p>
+                
+                <!-- SoundCloud Player -->
+                <div class="soundcloud-player" id="soundcloudPlayer">
+                    <div class="music-note">🎵</div>
+                    <iframe width="30%" height="100" scrolling="no" frameborder="no" allow="autoplay" 
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2078533348%3Fsecret_token%3Ds-2FKLvjD9kpA&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/sujal-nagar" title="Sujal Nagar" target="_blank" style="color: #cccccc; text-decoration: none;">Sujal Nagar</a> · <a href="https://soundcloud.com/sujal-nagar/0ea6269373862e56378d25186e65e2/s-2FKLvjD9kpA" title="0ea6269373862e56378d25186e65e2ac_160" target="_blank" style="color: #cccccc; text-decoration: none;">0ea6269373862e56378d25186e65e2ac_160</a></div>
+                    </iframe>
+                    <a href="https://soundcloud.com/sujal-nagar/0ea6269373862e56378d25186e65e2ac/s-2FKLvjD9kpA" 
+                       class="soundcloud-link" 
+                       target="_blank">
+                       Open in SoundCloud
+                    </a>
+                </div>
+                
+                <div style="margin-top: 1.5rem;">
+                    <button id="hugBtn" class="btn">Send Virtual Hug</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create sakura petals background
+        function createSakura() {
+            const container = document.getElementById('sakura-container');
+            for (let i = 0; i < 25; i++) {
+                const sakura = document.createElement('div');
+                sakura.classList.add('floating-sakura');
+                sakura.style.left = Math.random() * 100 + 'vw';
+                sakura.style.top = Math.random() * 100 + 'vh';
+                sakura.style.width = (Math.random() * 10 + 5) + 'px';
+                sakura.style.height = sakura.style.width;
+                sakura.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                sakura.style.animationDelay = Math.random() * 5 + 's';
+                sakura.style.opacity = Math.random() * 0.5 + 0.3;
+                container.appendChild(sakura);
+            }
+        }
+        
+        createSakura();
+        
+        // Button interactions
+        const mainBtn = document.getElementById('mainBtn');
+        const firstMessage = document.getElementById('firstMessage');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const finalMessage = document.getElementById('finalMessage');
+        const hugBtn = document.getElementById('hugBtn');
+        const soundcloudPlayer = document.getElementById('soundcloudPlayer');
+        
+        mainBtn.addEventListener('click', function() {
+            this.classList.add('hidden');
+            firstMessage.classList.add('show');
+            createSakura();
+        });
+        
+        yesBtn.addEventListener('click', function() {
+            firstMessage.classList.remove('show');
+            finalMessage.classList.add('show');
+            soundcloudPlayer.classList.add('show');
+            
+            // Create heart explosion
+            for (let i = 0; i < 30; i++) {
+                createHeart();
+            }
+            
+            // Mobile devices need interaction to play
+            if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                setTimeout(() => {
+                    alert("💕 Tap the SoundCloud play button to hear our song!");
+                }, 1000);
+            }
+        });
+        
+        noBtn.addEventListener('click', function(e) {
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const maxX = containerRect.width - this.offsetWidth - 40;
+            const maxY = containerRect.height - this.offsetHeight - 40;
+            
+            this.style.position = 'absolute';
+            this.style.left = Math.random() * maxX + 'px';
+            this.style.top = Math.random() * maxY + 'px';
+            
+            if (Math.random() > 0.7) {
+                alert("You can't escape this love! 😘");
+            }
+        });
+        
+        hugBtn.addEventListener('click', function() {
+            for (let i = 0; i < 50; i++) {
+                createHeart();
+            }
+            alert("🤗 Hug sent! I wish I could hold you right now...");
+        });
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = (window.innerHeight + 20) + 'px';
+            heart.style.animation = `fly ${Math.random() * 2 + 1}s linear forwards`;
+            heart.style.zIndex = '9999';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 2000);
+        }
+        
+        // Make the "No" button harder to catch
+        let noClicks = 0;
+        noBtn.addEventListener('mouseover', function() {
+            noClicks++;
+            if (noClicks > 3) {
+                this.style.transition = 'all 0.1s ease';
+            }
+        });
+    </script>
+</body>
+</html>
