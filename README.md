@@ -45,8 +45,6 @@ Here’s a sneak peek 👀
 ## ❤️ Made With
 
 - `HTML`
-- `CSS`
-- `Javascript` (optional but fun!)
 - 100% Love & Positivity 🫶
 
 ---
@@ -65,7 +63,7 @@ Feel free to improve the design, add animations, better responsiveness, or sugge
 
 ## 🧠 Idea by
 
-**[@YourNameHere](https://github.com/yourusername)**  
+**[@Crispy02th](https://github.com/Crispy02th)**  
 "Code is temporary, but moments are forever."
 
 ---
