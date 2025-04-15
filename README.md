@@ -38,7 +38,7 @@ This is a cute, customizable website you can send to someone special — whether
 > _“If I could code feelings, you'd be my `main()` forever.”_  
 Here’s a sneak peek 👀
 
-[🔗 Live Demo](https://your-demo-link.vercel.app)
+[🔗 Live Demo](https://you-are-special-to-me.netlify.app)
 
 ---
 
